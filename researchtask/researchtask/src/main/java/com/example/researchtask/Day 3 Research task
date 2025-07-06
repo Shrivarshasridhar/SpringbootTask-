@@ -1,0 +1,16 @@
+
+502 GATEWAY ERROR
+
+One server (usually a proxy or gateway) received an invalid response
+from another server it was trying to communicate with.
+
+Web applications using reverse proxies (like Nginx, Apache, or load balancers) to forward requests to a backend server (like Spring Boot)
+
+Frontend apps (like React or Angular) making API calls to a backend that’s down or misconfigured
+
+APIs or microservices that call other services internally
+
+COMMON CAUSES:
+Backend server is down
+Port mismatch
+Incorrect API URL

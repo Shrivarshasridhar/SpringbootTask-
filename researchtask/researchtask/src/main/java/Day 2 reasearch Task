@@ -1,0 +1,11 @@
+STATELESS API
+The server does not store any information about the client's previous requests.
+•	Every request contains all the information needed to process it.
+•	Server treats each request as independent.
+•	No client session is stored on the server.
+Eg:Authorization like password.
+STATEFUL API
+The server remembers the client's state between requests (like sessions or login ).
+•	If I log in, the server creates a session.
+•	I don’t need to send credentials every time the server remembers my session.
+•	Eg:Post,Get,Put etc.
