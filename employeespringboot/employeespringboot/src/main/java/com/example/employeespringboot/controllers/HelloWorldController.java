@@ -18,20 +18,36 @@ public class HelloWorldController {
         return hws.getMethod();
 
     }
+    @GetMapping("/role/{role}")
+    public List<Employee> getMethodByRole(@PathVariable String role){
+        return hws.getMethodByRole(role);
+    }
+
     @GetMapping("/{empId}")
     public Employee getMethodById(@PathVariable int empId){
         return hws.getMethodById(empId);
     }
-    @PutMapping("/{empId}")
-    public String putMethod(@PathVariable int empId, @RequestBody Employee employee){
-        return  hws.putMethod(empId,employee);
+
+    @PutMapping("/")
+    public String putMethod( @RequestBody Employee employee){
+        return  hws.updateEmployee(employee);
     }
+
     @PostMapping("/")
-    public String postMethod(@RequestBody Employee employee){
-        return hws.postMethod(employee);
+    public String addEmployee(@RequestBody Employee employee){
+
+         hws.addEmployee(employee);
+         return "Employee added successfully!!!";
     }
+
     @DeleteMapping("/{empId}")
-    public String deleteMapping(@PathVariable int empId){
-        return hws.deleteMethod(empId);
+    public String deleteMethodById(@PathVariable int empId){
+         hws.deleteMethodById(empId);
+         return "deleted";
+    }
+    @DeleteMapping("/")
+    public String deleteMethod(){
+        hws.deleteMethod();
+        return "deleted";
     }
 }
