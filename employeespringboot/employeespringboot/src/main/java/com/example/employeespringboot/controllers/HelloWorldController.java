@@ -8,44 +8,46 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/e")
+//@RequestMapping("/e")
 public class HelloWorldController {
     @Autowired
     HelloWorldService hws;
     @GetMapping("/")
-    public List<Employee> getMethod(){
-
-        return hws.getMethod();
-
+    public String routes(){
+        return "welcome to spring boot security";
     }
-    @GetMapping("/role/{role}")
+    @GetMapping("/e")
+    public List<Employee> getMethod(){
+        return hws.getMethod();
+    }
+    @GetMapping("/e/role/{role}")
     public List<Employee> getMethodByRole(@PathVariable String role){
         return hws.getMethodByRole(role);
     }
 
-    @GetMapping("/{empId}")
+    @GetMapping("/e/{empId}")
     public Employee getMethodById(@PathVariable int empId){
         return hws.getMethodById(empId);
     }
 
-    @PutMapping("/")
+    @PutMapping("/e")
     public String putMethod( @RequestBody Employee employee){
         return  hws.updateEmployee(employee);
     }
 
-    @PostMapping("/")
+    @PostMapping("/e")
     public String addEmployee(@RequestBody Employee employee){
 
          hws.addEmployee(employee);
          return "Employee added successfully!!!";
     }
 
-    @DeleteMapping("/{empId}")
+    @DeleteMapping("/e/{empId}")
     public String deleteMethodById(@PathVariable int empId){
          hws.deleteMethodById(empId);
          return "deleted";
     }
-    @DeleteMapping("/")
+    @DeleteMapping("/e")
     public String deleteMethod(){
         hws.deleteMethod();
         return "deleted";
