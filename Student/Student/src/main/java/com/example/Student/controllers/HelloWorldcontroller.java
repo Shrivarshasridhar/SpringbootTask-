@@ -8,30 +8,43 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/s")
+
+//@RequestMapping("/s")
 public class HelloWorldcontroller {
     @Autowired
     HelloWorldService hws;
     @GetMapping("/")
+    public String routes(){
+        return "welcome to student page";
+    }
+    @GetMapping("/s")
     public List<Students> getMethod(){
 
         return hws.getMethod();
 
     }
-    @GetMapping("/{stuId}")
+    @GetMapping("/s/{stuId}")
     public Students getMethodById(@PathVariable int stuId){
         return hws.getMethodById(stuId);
     }
-    @PutMapping("/{stuId}")
+    @GetMapping("/s/{name}")
+    public List<Students> getMethodByName(@PathVariable String name){
+        return hws.getMethodByName(name);
+    }
+    @PutMapping("/s/{stuId}")
     public String putMethod(@PathVariable int stuId, @RequestBody Students student){
         return  hws.putMethod(stuId,student);
     }
     @PostMapping("/")
-    public String postMethod(@RequestBody Students student){
-        return hws.postMethod(student);
+    public String postMethod(@PathVariable int stuId,@RequestBody Students student){
+        return hws.postMethod(stuId,student);
     }
     @DeleteMapping("/{stuId}")
     public String deleteMapping(@PathVariable int stuId){
         return hws.deleteMethod(stuId);
+    }
+    @DeleteMapping("/s")
+    public String deleteall(){
+        return hws.deleteall();
     }
 }
