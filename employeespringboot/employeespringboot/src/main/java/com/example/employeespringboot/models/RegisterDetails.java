@@ -16,7 +16,7 @@ public class RegisterDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int empId;
-    @Column(name="emp_name")
+    @Column(name="emp_name",nullable = false)
     private String empname;
     private String email;
     private String password;
