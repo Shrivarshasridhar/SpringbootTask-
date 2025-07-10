@@ -32,6 +32,7 @@ public class SpringConfiguration {
 //              auth.requestMatchers(HttpMethod.PUT,"/employee").hasRole("ADMIN");
 //              auth.requestMatchers(HttpMethod.DELETE,"/employee").hasRole("ADMIN");
 //              auth.requestMatchers(HttpMethod.GET,"/**").hasAnyRole("ADMIN","USER");
+                    auth.requestMatchers("/api/auth/register","/api/auth/login").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults());
@@ -39,7 +40,7 @@ public class SpringConfiguration {
     }
 
 //  @Bean
-//  UserDetailsService userDetailsService(){
+// UserDetailsService userDetailsService(){
 //    UserDetails admin = User.builder()
 //            .username("admin")
 //            .password(passwordEncoder().encode("admin"))
