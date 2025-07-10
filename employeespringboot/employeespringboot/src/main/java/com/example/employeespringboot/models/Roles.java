@@ -17,5 +17,4 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  int roleId;
     private  String roleName;
-
 }
