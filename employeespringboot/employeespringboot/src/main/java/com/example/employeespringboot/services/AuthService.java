@@ -1,19 +1,31 @@
 package com.example.employeespringboot.services;
 
+import com.example.employeespringboot.jwt.JwtTokenProvider;
 import com.example.employeespringboot.models.RegisterDetails;
 import com.example.employeespringboot.models.Roles;
 import com.example.employeespringboot.models.UserDetailsDto;
 import com.example.employeespringboot.repository.RegisterDetailsRepository;
+import com.example.employeespringboot.repository.RegisterRepository;
 import com.example.employeespringboot.repository.RolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class AuthService {
+    @Autowired
+    RegisterRepository registerRepository;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     RegisterDetailsRepository registerDetailsRepository;
@@ -43,13 +55,12 @@ public class AuthService {
         return "Employee Added Successfully";
     }
 
-    public String authenticate(RegisterDetails login) {
-        RegisterDetails user = registerDetailsRepository.findByEmail(login.getEmail());
-        if(user != null){
-            if (passwordEncoder.matches(login.getPassword(),user.getPassword())){
-                return "Login Successful";
-            }
-        }
-        return "Login Not Successful";
+    public String authenticate(RegisterDetails login){
+        Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.getUserName(),login.getPassword()))
+                ;
+        return jwtTokenProvider.generateToken(authentication);
+    }
+    public Optional<RegisterDetails>  getUserByName(String username){
+        return  registerRepository.findByUserName(username);
     }
 }
