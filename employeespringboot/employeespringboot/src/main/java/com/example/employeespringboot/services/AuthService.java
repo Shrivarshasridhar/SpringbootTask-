@@ -20,12 +20,12 @@ import java.util.Set;
 
 @Service
 public class AuthService {
+
     @Autowired
     RegisterRepository registerRepository;
+
     @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-    JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     RegisterDetailsRepository registerDetailsRepository;
@@ -35,6 +35,9 @@ public class AuthService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     public String addNewEmployee(UserDetailsDto register) {
         RegisterDetails registerDetails = new RegisterDetails();
@@ -55,12 +58,15 @@ public class AuthService {
         return "Employee Added Successfully";
     }
 
-    public String authenticate(RegisterDetails login){
-        Authentication authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login.getUserName(),login.getPassword()))
-                ;
+    public String authenticate(RegisterDetails login) {
+        Authentication authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                login.getUserName(),login.getPassword()));
         return jwtTokenProvider.generateToken(authentication);
     }
-    public Optional<RegisterDetails>  getUserByName(String username){
-        return  registerRepository.findByUserName(username);
+
+    public Optional<RegisterDetails> getUserByUsername(String username){
+        return registerRepository.findByUserName(username);
     }
 }

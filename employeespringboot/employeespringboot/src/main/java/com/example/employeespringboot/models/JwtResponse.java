@@ -5,10 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class JwtResponse {
     private String token;
-    private String  username;
-    private  String roles;
+    private String username;
+    private String roles;
 }
