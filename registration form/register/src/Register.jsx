@@ -1,36 +1,39 @@
 import { useState } from "react";
 import axios from "axios";
 
-const Login = () => {
+const Register = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  async function handleLogin(event) {
+  async function handleRegister(event) {
     event.preventDefault();
 
-    if (!userName || !password) {
-      alert("Please enter both username and password");
+    if (!userName || !password || !confirmPassword) {
+      alert("Please enter username, password, and confirm password");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
       return;
     }
 
     try {
-      const response = await axios.post("http://localhost:3001/api/auth/login", {
+      const response = await axios.post("http://localhost:3001/api/auth/register", {
         userName,
         password,
       });
-
-      const token = response.data.token;
-      localStorage.setItem("token", token);
-      alert("Login Successful");
+      alert("Registration Successful");
     } catch (e) {
-      alert("Invalid Credentials");
+      alert("Registration failed");
     }
   }
 
   return (
     <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      <h2>Register</h2>
+      <form onSubmit={handleRegister}>
         <label htmlFor="userName">User Name</label>
         <input
           id="userName"
@@ -51,10 +54,20 @@ const Login = () => {
         />
         <br />
         <br />
-        <button type="submit">Login</button>
+        <label htmlFor="confirmPassword">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          value={confirmPassword}
+          type="password"
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <br />
+        <br />
+        <button type="submit">Register</button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;
