@@ -10,3 +10,4 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar employeespringboot.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "employeespringboot.jar"]
+
